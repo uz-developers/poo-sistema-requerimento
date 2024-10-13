@@ -18,7 +18,7 @@ public class CourseService extends Service {
 
         Course course = new Course();
         course.setName(data.get("name"));
-        course.setRegime(RegimeEnum.valueOf(data.get("regime"))); // Assumindo que o regime é passado como string
+        course.setRegime(RegimeEnum.valueOf(data.get("regime"))); 
         course.setCreatedAt(Instant.now());
         course.setUpdatedAt(Instant.now());
         
@@ -37,7 +37,7 @@ public class CourseService extends Service {
 
             if (existingCourse != null) {
                 existingCourse.setName(data.get("name"));
-                existingCourse.setRegime(RegimeEnum.valueOf(data.get("regime"))); // Atualiza o regime
+                existingCourse.setRegime(RegimeEnum.valueOf(data.get("regime")));
 
                 existingCourse.setUpdatedAt(Instant.now());
                 session.getTransaction().commit();
