@@ -1,0 +1,31 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- configuracoes da db, dependo de como estao as configuracoes na sua maquina -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/requirement_sys</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">123456789</property>
+
+        <!-- Dialeto do banco de dados -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Configurações adicionais -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Mapeamento de entidades -->
+        <mapping class="com.exemplo.models.User"/>
+        <mapping class="com.exemplo.models.enums.RegimeEnum"/>
+        <mapping class="com.exemplo.models.enums.RequirementStatus"/>
+        <mapping class="com.exemplo.models.enums.RequirementType"/>
+        <mapping class="com.exemplo.models.Faculity"/>
+        <mapping class="com.exemplo.models.Course"/>  
+        <mapping class="com.exemplo.models.Student"/>
+        <mapping class="com.exemplo.models.Requirement"/>
+        <mapping class="com.exemplo.models.StudentContact"/>
+    </session-factory>
+</hibernate-configuration>
