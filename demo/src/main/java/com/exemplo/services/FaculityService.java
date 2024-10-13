@@ -39,8 +39,17 @@ public class FaculityService extends Service {
             Faculity existingFaculity = session.get(Faculity.class, Integer.parseInt(data.get("id")));
 
             if (existingFaculity != null) {
-                existingFaculity.setName(data.get("name"));
-                existingFaculity.setEmail(data.get("email"));
+
+                for (String field: data.keySet()) {
+                    switch (field) {
+                        case "name":
+                            existingFaculity.setName(data.get(field));
+                            break;
+                        case "email":
+                            existingFaculity.setEmail(data.get(field));
+                            break;
+                    }
+                }
                 existingFaculity.setUpdatedAt(Instant.now());
                 session.update(existingFaculity);
                 transaction.commit();

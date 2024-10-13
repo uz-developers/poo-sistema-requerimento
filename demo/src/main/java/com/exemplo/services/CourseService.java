@@ -5,7 +5,6 @@ import com.exemplo.models.enums.RegimeEnum;
 import com.exemplo.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -36,9 +35,17 @@ public class CourseService extends Service {
             Course existingCourse = session.get(Course.class, Integer.parseInt(data.get("id")));
 
             if (existingCourse != null) {
-                existingCourse.setName(data.get("name"));
-                existingCourse.setRegime(RegimeEnum.valueOf(data.get("regime")));
-
+                
+                for (String field: data.keySet()) {
+                    switch (field) {
+                        case "name":
+                            existingCourse.setName(data.get(field));
+                            break;
+                        case "regime":
+                            existingCourse.setRegime(RegimeEnum.fromValue(data.get(field)));
+                            break;
+                    }
+                }
                 existingCourse.setUpdatedAt(Instant.now());
                 session.getTransaction().commit();
                 session.close();
