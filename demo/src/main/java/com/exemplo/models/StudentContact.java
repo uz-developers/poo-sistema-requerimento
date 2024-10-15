@@ -22,10 +22,23 @@ public class StudentContact {
     @Column(name = "created_at", columnDefinition = "timestamp with time zone default now()")
     private Instant createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "timestamp with time zone")
+    @Column(name = "updated_at", columnDefinition = "timestamp with time zone default now()")
     private Instant updatedAt;
 
-    // Getters and Setters
+   
+    public StudentContact() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    public StudentContact(Student student, String contact) {
+        this.student = student;
+        this.contact = contact;
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -64,5 +77,31 @@ public class StudentContact {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    
+    // Criar novo contato
+    public static StudentContact create(Student student, String contact) {
+        return new StudentContact(student, contact);
+    }
+
+    // Ler informações do contato
+    public void read() {
+        System.out.println("ID: " + this.getId());
+        System.out.println("Estudante: " + this.getStudent().getName());
+        System.out.println("Contato: " + this.getContact());
+        System.out.println("Criado em: " + this.getCreatedAt());
+        System.out.println("Atualizado em: " + this.getUpdatedAt());
+    }
+
+    // Atualizar contato
+    public void update(String newContact) {
+        this.setContact(newContact);
+        this.setUpdatedAt(Instant.now());
+    }
+
+    // Deletar contato
+    public void delete() {
+        System.out.println("Contato deletado: " + this.getContact());
     }
 }
