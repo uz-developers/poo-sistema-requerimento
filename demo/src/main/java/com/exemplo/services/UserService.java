@@ -100,4 +100,27 @@ public class UserService extends Service {
 
         return null;
     }
+
+    public static Integer isUser(String username, String passwd) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Integer userId = -1; // Valor padrao para indicar que o usuario nao foi encontrado
+    
+        try {
+            Query<User> query = session.createQuery("FROM User u WHERE u.username = :username AND u.passwd = :passwd", User.class);
+            query.setParameter("username", username);
+            query.setParameter("passwd", passwd);
+    
+            User user = query.uniqueResult(); // Obtem um unico resultado ou null se nao houver correspondencia
+    
+            if (user != null) {
+                userId = user.getId(); // Obtem o ID do usuario encontrado
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close(); // Garante que a sessao seja fechada
+        }
+    
+        return userId;
+    }    
 }
