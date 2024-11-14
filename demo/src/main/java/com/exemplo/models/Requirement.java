@@ -2,8 +2,8 @@ package com.exemplo.models;
 
 import javax.persistence.*;
 import java.time.Instant;
-import com.exemplo.models.enums.RequirementStatus;
-import com.exemplo.models.enums.RequirementType;
+// import com.exemplo.models.enums.RequirementStatus;
+// import com.exemplo.models.enums.RequirementType;
 
 @Entity
 @Table(name = "requirements", schema = "public")
@@ -14,9 +14,8 @@ public class Requirement {
     @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private RequirementType type;
+    private String type;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -27,9 +26,8 @@ public class Requirement {
     @Column(name = "attachment")
     private String attachment;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private RequirementStatus status;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
@@ -60,11 +58,11 @@ public class Requirement {
         this.id = id;
     }
 
-    public RequirementType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(RequirementType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -92,11 +90,11 @@ public class Requirement {
         this.attachment = attachment;
     }
 
-    public RequirementStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(RequirementStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -2,7 +2,6 @@ package com.exemplo.models;
 
 import javax.persistence.*;
 import java.time.Instant;
-import com.exemplo.models.enums.RegimeEnum;
 
 @Entity
 @Table(name = "course", schema = "public")
@@ -16,9 +15,8 @@ public class Course {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "regime", nullable = false)
-    private RegimeEnum regime; 
+    private String regime; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculity_id", nullable = false)
@@ -48,11 +46,11 @@ public class Course {
         this.name = name;
     }
 
-    public RegimeEnum getRegime() {
+    public String getRegime() {
         return regime;
     }
 
-    public void setRegime(RegimeEnum regime) {
+    public void setRegime(String regime) {
         this.regime = regime;
     }
 

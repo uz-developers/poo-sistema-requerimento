@@ -66,4 +66,3 @@ public class StudentContact {
         this.updatedAt = updatedAt;
     }
 } 
-}

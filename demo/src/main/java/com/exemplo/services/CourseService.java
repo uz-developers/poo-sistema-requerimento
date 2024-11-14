@@ -1,7 +1,6 @@
 package com.exemplo.services;
 
 import com.exemplo.models.Course;
-import com.exemplo.models.enums.RegimeEnum;
 import com.exemplo.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -17,7 +16,7 @@ public class CourseService extends Service {
 
         Course course = new Course();
         course.setName(data.get("name"));
-        course.setRegime(RegimeEnum.valueOf(data.get("regime"))); 
+        course.setRegime(data.get("regime")); 
         course.setCreatedAt(Instant.now());
         course.setUpdatedAt(Instant.now());
         
@@ -42,7 +41,7 @@ public class CourseService extends Service {
                             existingCourse.setName(data.get(field));
                             break;
                         case "regime":
-                            existingCourse.setRegime(RegimeEnum.fromValue(data.get(field)));
+                            existingCourse.setRegime(data.get(field));
                             break;
                     }
                 }
@@ -91,4 +90,25 @@ public class CourseService extends Service {
         }
         return null;
     }
+
+    public static Course getByName(String courseName) {
+        Course course = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            
+            // Consulta HQL para buscar o curso pelo nome
+            Query<Course> query = session.createQuery("FROM Course WHERE name = :courseName", Course.class);
+            query.setParameter("courseName", courseName);
+            
+            // Obtém o curso correspondente ao nome
+            course = query.uniqueResult();
+            
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return course;
+    }    
 }
